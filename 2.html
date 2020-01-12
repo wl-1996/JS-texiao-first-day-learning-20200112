@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>向上滚动的模型</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .carousel {
+            width: 290px;
+            height: 115px;
+            border: 1px solid red;
+            position: relative;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+
+        .carousel ul {
+            list-style: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 300px;
+            height: 115px;
+            /*background: yellow;*/
+        }
+
+        .carousel ul li {
+            float: left;
+            width: 90px;
+            height: 115px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="carousel">
+    <ul>
+        <li><a href="#"><img src="./images/0.png" alt=""></a></li>
+        <li><a href="#"><img src="./images/1.png" alt=""></a></li>
+        <li><a href="#"><img src="./images/2.png" alt=""></a></li>
+        <li><a href="#"><img src="./images/3.png" alt=""></a></li>
+        <li><a href="#"><img src="./images/4.png" alt=""></a></li>
+        <li><a href="#"><img src="./images/5.png" alt=""></a></li>
+        <li><a href="#"><img src="./images/6.png" alt=""></a></li>
+        <li><a href="#"><img src="./images/7.png" alt=""></a></li>
+    </ul>
+</div>
+
+<script src="./jquery-1.12.3.min.js"></script>
+<script>
+    let $ul = $(".carousel ul")
+    let $carousel = $(".carousel")
+    // 配置参数
+    let options = {
+        "interval": 1600,
+        "animateTime": 600,
+        "moveStep": -125
+    }
+    // 原有图片张数
+    let length = $("ul li").length
+    //防止穿帮，应该补空li，补充几个？要根据现有的li的个数来决定
+    if (length % 3 === 2) {
+        $ul.append($("<li></li>"))
+    } else if (length % 3 === 1) {
+        $ul.append($("<li></li><li></li>"))
+    }
+
+    //把ul中的li所有下标小于3的，克隆一份，追加到ul里
+    $ul.append($("ul li:lt(3)").clone(true))
+
+    //定时器间隔调用move函数
+    let timer = setInterval(move, options.interval)
+    //鼠标进入停止定时器
+    $carousel.mouseenter(function () {
+        clearInterval(timer)
+    })
+    //鼠标离开重新启动定时器
+    $carousel.mouseleave(function () {
+        timer = setInterval(move, options.interval)
+    })
+
+    //信号量
+    let idx = 0
+
+    //动一次，上升一行的动画函数
+    function move() {
+        idx++
+        console.log(idx)
+        $ul.animate({"top": options.moveStep * idx}, options.animateTime, function () {
+            if (idx === parseInt(length / 3) + 1) {
+                idx = 0;
+                $(this).css("top", 0)
+            }
+        })
+    }
+</script>
+</body>
+</html>
