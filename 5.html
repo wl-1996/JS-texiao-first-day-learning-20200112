@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拼图轮播的原理深入</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 56px;
+            height: 30px;
+            position: absolute;
+            background: url("./images/lunbo/4.jpg");
+        }
+    </style>
+</head>
+<body>
+
+<script src="./jquery-1.12.3.min.js"></script>
+<script>
+    for (let row = 0; row < 10; row++) {
+        for (let col = 0; col < 10; col++) {
+            let $div = $("<div></div>")
+            $div.css({
+                "left": 0,
+                "top": 0,
+                "background-position": -56 * col + "px " + -30 * row + "px"
+            });
+            $("body").append($div)
+        }
+    }
+
+    // each语句进行动画
+    $("div").each(function (i) {
+        $(this).delay(i % 10 * 20 + parseInt(i / 10) * 20).animate({
+            "left": i % 10 * 56,
+            "top": parseInt(i / 10) * 30
+        }, 400)
+
+    })
+</script>
+</body>
+</html>

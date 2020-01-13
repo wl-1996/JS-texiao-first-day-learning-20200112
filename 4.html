@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拼图轮播的原理深入</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            position: absolute;
+            top: 500px;
+            left: 0;
+            background: url("./images/lunbo/0.jpg");
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+<script src="./jquery-1.12.3.min.js"></script>
+<script>
+    $("div").each(function (i) {
+        $(this).css({
+            "left": 500,
+            "top": 500,
+            "background-position": -i % 3 * 200 + "px " + -parseInt(i / 3) * 200 + "px"
+        })
+            .delay(i * 50)
+            .animate({
+                "left": i % 3 * 200,
+                "top": parseInt(i / 3) * 200,
+            }, 300)
+
+    })
+</script>
+</body>
+</html>
