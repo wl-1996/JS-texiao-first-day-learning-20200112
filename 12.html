@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dom2级绑定监听-面试题</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box1 {
+            width: 400px;
+            height: 400px;
+            background: yellowgreen;
+        }
+
+        #box2 {
+            width: 300px;
+            height: 300px;
+            background: pink;
+        }
+
+        #box3 {
+            width: 200px;
+            height: 200px;
+            background: gold;
+        }
+    </style>
+</head>
+<body>
+<div id="box1">
+    <div id="box2">
+        <div id="box3"></div>
+    </div>
+</div>
+
+<script>
+    let box1 = document.getElementById("box1")
+    let box2 = document.getElementById("box2")
+    let box3 = document.getElementById("box3")
+
+    box2.addEventListener('click', function () {
+        alert(1)
+    }, true)
+
+    box1.onclick = function () {
+        alert(2)
+    }
+
+    box2.addEventListener('click', function () {
+        alert(3)
+    }, false)
+</script>
+</body>
+</html>
