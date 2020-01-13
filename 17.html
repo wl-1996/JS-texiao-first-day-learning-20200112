@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>event事件对象</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            background: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+
+<script>
+    let oDiv = document.getElementsByTagName("div")[0]
+
+    oDiv.onclick = function (event) {
+        //事件的类型，‘click’
+        console.log(event.type)
+        //事件的触发元素
+        console.log(event.target)
+    }
+</script>
+</body>
+</html>
